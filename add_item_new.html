@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang = "en">
+   <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      
+      <!-- Javascript -->
+      <script>
+         $(function() {
+            $( "#datepicker-12" ).datepicker({ dateFormat: 'yy-mm-dd' });
+            $( "#datepicker-12" ).datepicker("show");
+         });
+      </script>
+<style>
+label{
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 300px;
+    text-align: right;
+}
+input {
+  display: inline-block;
+  float: left;
+}
+textarea {
+  display: inline-block;
+  float: left;
+}
+</style>
+   </head>
+<body>
+<form action="add_item.php" method="post">
+<label>Title : </label><input required type="text" style="width:500px" value="" name="title">
+<BR>
+<label>Author : </label><input required type="text" style="width:500px" value="" name="author">
+<BR>
+<label>Link : </label><input required type="text" style="width:500px" value="" name="link">
+<BR>
+<label>Description : </label><textarea required rows="5" style="width:500px" value="" name="description"></textarea>
+<BR>
+<label>Enter Date : </label> <input value="" name="date" type = "text" id = "datepicker-12">
+<label>-------------------------------------------</label>
+<label>Work and Finance</label><input type='hidden' value='n' name="work"><input type="checkbox" name="work" value="y" />
+<BR>
+<label>Housing and Communities</label><input type='hidden' value='n' name="housing"><input type="checkbox" name="housing" value="y" />
+<BR>
+<label>Wellbeing</label><input type='hidden' value='n' name="wellbeing"><input type="checkbox" name="wellbeing" value="y" />
+<BR>
+<label>Care</label><input type='hidden' value='n' name="care"><input type="checkbox" name="care" value="y" />
+<label>--------------------------------------------</label>
+<label>Being in fulfilling work</label><input type='hidden' value='n' name="sub1"><input type="checkbox" name="sub1" value="y" />
+<BR>
+<label>Living in a suitable home and neighbourhood</label><input type='hidden' value='n' name="sub2"><input type="checkbox" name="sub2" value="y" />
+<BR>
+<label>Managing major life changes</label><input type='hidden' value='n' name="sub3"><input type="checkbox" name="sub3" value="y" />
+<BR>
+<label>Contributing to communities</label><input type='hidden' value='n' name="sub4"><input type="checkbox" name="sub4" value="y" />
+<BR>
+<label>Keeping physically active</label><input type='hidden' value='n' name="sub5"><input type="checkbox" name="sub5" value="y" />
+<BR>
+<label>Taking a local approach to ageing</label><input type='hidden' value='n' name="sub6"><input type="checkbox" name="sub6" value="y" />
+<BR>
+<label>Harnessing the benefits of digital</label><input type='hidden' value='n' name="sub7"><input type="checkbox" name="sub7" value="y" />
+<BR>
+<label>Wellbeing in later life</label><input type='hidden' value='n' name="sub8"><input type="checkbox" name="sub8" value="y" />
+<BR>
+<input type ="submit" value="Submit"> 
+
+</form>
+</body>
+</html>
+
