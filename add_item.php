@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect("localhost", "user", "pass", "db");
+$con = mysqli_connect("localhost", "db", "pass", "table");
 if (!$con)
   {
   die('Could not connect: ' . mysqli_error());
@@ -28,7 +28,7 @@ $author = mysqli_real_escape_string($con,$author);
 $link = mysqli_real_escape_string($con,$link);
 $description = mysqli_real_escape_string($con,$description);
 
-mysqli_query($con, "INSERT INTO data (title,author,link,description,date,work,housing,wellbeing,Care,sub1,sub2,sub3,sub4,sub5,sub6,sub7,sub8) VALUES ('$title','$author','$link','$description','$date','$work','$housing','$wellbeing','$care','$sub1','$sub2','$sub3','$sub4','$sub5','$sub6','$sub7','$sub8')");
+mysqli_query($con, "INSERT INTO data (title,author,link,description,date,work,housing,wellbeing,Care,fulfilling,home,changes,community,active,local,digital,later) VALUES ('$title','$author','$link','$description','$date','$work','$housing','$wellbeing','$care','$sub1','$sub2','$sub3','$sub4','$sub5','$sub6','$sub7','$sub8')");
 
 $output= "<rss xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:content='http://purl.org/rss/1.0/modules/content/' version='2.0'>";
 $output .= "<channel>";
@@ -53,47 +53,47 @@ $output .= "</dc:creator>";
 $output .= "<link>";
 $output .= $array['link'];
 $output .= "</link>";
-$output .= "<content:encoded>";
+$output .= "<description>";
 $output .= "<![CDATA[";
 $output .= $array['description'];
 $output .= "]]>\n";
-$output .= "</content:encoded>";
-if ($array['sub1']=="y"){
+$output .= "</description>";
+if ($array['fulfilling']=="y"){
 $output .= "<dc:subject>";
 $output .= "Being in fulfilling work";
 $output .= "</dc:subject>";
 }
-if ($array['sub2']=="y"){
+if ($array['home']=="y"){
 $output .= "<dc:subject>";
 $output .= "Living in a suitable home and neighbourhood";
 $output .= "</dc:subject>";
 }
-if ($array['sub3']=="y"){
+if ($array['changes']=="y"){
 $output .= "<dc:subject>";
 $output .= "Managing major life changes";
 $output .= "</dc:subject>";
 }
-if ($array['sub4']=="y"){
+if ($array['community']=="y"){
 $output .= "<dc:subject>";
 $output .= "Contributing to communities";
 $output .= "</dc:subject>";
 }
-if ($array['sub5']=="y"){
+if ($array['active']=="y"){
 $output .= "<dc:subject>";
 $output .= "Keeping physically active";
 $output .= "</dc:subject>";
 }
-if ($array['sub6']=="y"){
+if ($array['local']=="y"){
 $output .= "<dc:subject>";
 $output .= "Taking a local approach to ageing";
 $output .= "</dc:subject>";
 }
-if ($array['sub7']=="y"){
+if ($array['digital']=="y"){
 $output .= "<dc:subject>";
-$output .= "Harnessing the benefits of digital";
+$output .= "Getting the most out of digital";
 $output .= "</dc:subject>";
 }
-if ($array['sub8']=="y"){
+if ($array['later']=="y"){
 $output .= "<dc:subject>";
 $output .= "Wellbeing in later life";
 $output .= "</dc:subject>";
@@ -114,8 +114,9 @@ $file = fopen('cfab_alert.xml',"w");
 fwrite($file,$output);
 fclose($file);
 
-echo "This item has been added:<br>";
 
+echo "This item has been added:<br>";
+ 
 $handle = popen("tail -n2 cfab_alert.xml 2>&1", 'r');
 while(!feof($handle)) {
     $buffer = fgets($handle);
@@ -125,11 +126,8 @@ while(!feof($handle)) {
 }
 pclose($handle);
 echo "<br>";
-echo "<a href='add_item.html'>Add another</a>";
+echo "<a href='add_item_new.html'>Add another</a>";
 echo "<br>";
 echo "<a href='cfab_alert.xml'>View feed</a>";
-//echo "</body>";
-//echo "</html>";
-//mysqli_close($con);
 
 ?>
