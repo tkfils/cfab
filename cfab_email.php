@@ -1,7 +1,7 @@
 <?php
-$to ="someone@kingsfund.org.uk";
-#$to = "someoneand@kingsfund.org.uk".", ";
-#$to = "someoneelse@kingsfund.org.uk";
+$to ="ha.nguyen@kingsfund.org.uk";
+#$to = "m.hale@kingsfund.org.uk".", ";
+#$to = "m.hale@kingsfund.org.uk";
 $subject ="CfAB Selections - ";
 $when= date("Y-m-d");
 $subject .=$when;
@@ -9,14 +9,14 @@ $headers = "Content-Transfer-Encoding: base64\r\n";
 $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 
-$db = mysqli_connect("localhost", "user", "pass", "db");
+$db = mysqli_connect("localhost", "database", "password", "table");
 
 
 $body = "<html><head>";
 $body .= "<meta http-equiv='Content-type' content='text/html;charset=UTF-8'></head>";
 $body .="<body style='font-size:11pt;font-family:Calibri';>";
 
-$result = mysqli_query($db,"select author, title, description, link, date from data where work='y' and MONTH(date)=MONTH(CURRENT_DATE())");
+$result = mysqli_query($db,"select d.author, d.title, d.description, d.link, d.date from data d, lastsent l where d.work='y' and l.id=13 and d.date_added  > l.lastsent");
 $num=mysqli_num_rows($result);
 if ($num > 0) {
 $body .= "<h3>Work and Finance</h3>";
@@ -41,7 +41,7 @@ $i++;
 }
 
 
-$result = mysqli_query($db,"select author, title, description, link, date from data where housing='y' and MONTH(date)=MONTH(CURRENT_DATE())");
+$result = mysqli_query($db,"select d.author, d.title, d.description, d.link, d.date from data d, lastsent l where d.housing='y' and l.id=13 and d.date_added > l.lastsent");
 $num=mysqli_num_rows($result);
 if ($num > 0) {
 $body .= "<h3>Housing and Communities</h3>";
@@ -64,7 +64,7 @@ $body.="<p>";
 $i++;
 }
 
-$result = mysqli_query($db,"select author, title, description, link, date from data where wellbeing='y' and MONTH(date)=MONTH(CURRENT_DATE())");
+$result = mysqli_query($db,"select d.author, d.title, d.description, d.link, d.date from data d, lastsent l where d.wellbeing='y' and l.id=13 and d.date_added > l.lastsent");
 $num=mysqli_num_rows($result);
 if ($num > 0) {
 $body .= "<h3>Wellbeing</h3>";
@@ -87,7 +87,7 @@ $body.="<p>";
 $i++;
 }
 
-$result = mysqli_query($db,"select author, title, description, link, date from data where care='y' and MONTH(date)=MONTH(CURRENT_DATE())");
+$result = mysqli_query($db,"select d.author, d.title, d.description, d.link, d.date from data d, lastsent l where d.care='y' and l.id=13 and d.date_added > l.lastsent");
 $num=mysqli_num_rows($result);
 if ($num > 0) {
 $body .= "<h3>Care</h3>";
@@ -112,6 +112,10 @@ $i++;
 
 $body .= "</body></html>";
 
+$sql="update lastsent set lastsent=CURRENT_DATE() where id=13";
+mysqli_query($db,$sql);
+
+mysqli_close($db);
 $body1= chunk_split(base64_encode($body));
 
 if (mail($to, $subject, $body1, $headers)) {
