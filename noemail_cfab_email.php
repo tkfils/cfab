@@ -9,7 +9,7 @@ $headers = "Content-Transfer-Encoding: base64\r\n";
 $headers .= "Content-type: text/html; charset=UTF-8\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 
-$db = mysqli_connect("localhost", "cfab", "CFABe!!e3", "cfab");
+$db = mysqli_connect("localhost", "user", "password", "dbase");
 
 
 $body = "<html><head>";
